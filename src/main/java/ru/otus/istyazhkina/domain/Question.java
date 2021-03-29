@@ -1,4 +1,4 @@
-package ru.otus.istyazhkina.data;
+package ru.otus.istyazhkina.domain;
 
 import java.util.List;
 
