@@ -1,8 +1,6 @@
 package ru.otus.istyazhkina.dao;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.istyazhkina.domain.Question;
 import ru.otus.istyazhkina.exception.ReadCsvException;
 
@@ -11,7 +9,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@ExtendWith(MockitoExtension.class)
 public class QuestionDaoTest {
 
     @Test
