@@ -1,6 +1,6 @@
 package ru.otus.istyazhkina.service;
 
-import ru.otus.istyazhkina.data.Question;
+import ru.otus.istyazhkina.domain.Question;
 
 import java.util.List;
 
