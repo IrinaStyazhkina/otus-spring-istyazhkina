@@ -1,7 +1,6 @@
 package ru.otus.istyazhkina.testapp.service;
 
 import org.springframework.stereotype.Service;
-import ru.otus.istyazhkina.testapp.domain.Student;
 
 @Service
 public class AppRunnerServiceImpl implements AppRunnerService {
@@ -20,7 +19,7 @@ public class AppRunnerServiceImpl implements AppRunnerService {
     @Override
     public void runTest() {
         languageService.chooseAppLanguage();
-        Student studentData = studentService.getStudentData();
+        studentService.getStudentData();
         testingService.askQuestions();
     }
 }
