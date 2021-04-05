@@ -1,0 +1,10 @@
+application:
+  questions.file: questions/questions_en_EN.csv
+  points-to-pass: 4
+spring:
+  output:
+    ansi:
+      enabled: always
+
+
+
