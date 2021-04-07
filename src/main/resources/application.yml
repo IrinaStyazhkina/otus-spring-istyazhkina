@@ -5,3 +5,5 @@ spring:
   output:
     ansi:
       enabled: always
+messages:
+  encoding: UTF-8
