@@ -3,8 +3,8 @@ package ru.otus.istyazhkina.testapp.dao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.otus.istyazhkina.testapp.config.LanguageConfig;
 import ru.otus.istyazhkina.testapp.domain.Question;
-import ru.otus.istyazhkina.testapp.service.LocalizationService;
 
 import java.util.List;
 
@@ -15,18 +15,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class QuestionDaoImplTests {
 
     @Autowired
-    private LocalizationService localizationService;
+    private LanguageConfig languageConfig;
 
     @Test
     void questionsFileShouldHaveFiveQuestions() {
-        QuestionDao questionDao = new QuestionDaoImpl(localizationService);
+        QuestionDao questionDao = new QuestionDaoImpl(languageConfig);
         List<Question> questions = questionDao.getQuestions();
         assertEquals(5, questions.size());
     }
 
     @Test
     void questionsParseTest() {
-        QuestionDao questionDao = new QuestionDaoImpl(localizationService);
+        QuestionDao questionDao = new QuestionDaoImpl(languageConfig);
         List<Question> questions = questionDao.getQuestions();
         Question question = questions.get(0);
         assertThat(question.getQuestion()).isEqualTo("How to declare a class in Java?");

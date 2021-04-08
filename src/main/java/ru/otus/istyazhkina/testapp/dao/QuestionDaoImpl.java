@@ -1,10 +1,9 @@
 package ru.otus.istyazhkina.testapp.dao;
 
 import org.springframework.stereotype.Repository;
-import ru.otus.istyazhkina.testapp.config.Language;
+import ru.otus.istyazhkina.testapp.config.LanguageConfig;
 import ru.otus.istyazhkina.testapp.domain.Question;
 import ru.otus.istyazhkina.testapp.exceptions.QuestionReadException;
-import ru.otus.istyazhkina.testapp.service.LocalizationService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,16 +16,14 @@ import static java.util.Objects.requireNonNull;
 
 @Repository
 public class QuestionDaoImpl implements QuestionDao {
-    private final LocalizationService localizationService;
+    private final LanguageConfig languageConfig;
 
-
-    public QuestionDaoImpl(LocalizationService localizationService) {
-        this.localizationService = localizationService;
+    public QuestionDaoImpl(LanguageConfig languageConfig) {
+        this.languageConfig = languageConfig;
     }
 
     public List<Question> getQuestions() throws QuestionReadException {
-        final Language lang = Language.getByLocale(localizationService.getLocale());
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(lang.getPathToCsv());
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(languageConfig.getQuestionsFile(languageConfig.getLocale()));
              Scanner sc = new Scanner(requireNonNull(inputStream))) {
             List<Question> questions = new ArrayList<>();
             while (sc.hasNext()) {

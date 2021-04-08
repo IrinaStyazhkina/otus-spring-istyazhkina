@@ -3,25 +3,27 @@ package ru.otus.istyazhkina.testapp.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.otus.istyazhkina.testapp.domain.Question;
+import ru.otus.istyazhkina.testapp.domain.Student;
 
 import java.util.List;
 
 @Service
 public class TestingServiceImpl implements TestingService {
     private final IOService ioService;
+    private final PrintTranslatedMessagesFacade printTranslatedMessagesFacade;
     private final QuestionService questionService;
-    private final LocalizationService localizationService;
     private final Integer pointsToPassTest;
 
-    public TestingServiceImpl(IOService ioService, QuestionService questionService, LocalizationService localizationService, @Value("${application.points-to-pass}") Integer pointsToPassTest) {
+    public TestingServiceImpl(IOService ioService, QuestionService questionService, @Value("${application.points-to-pass}") Integer pointsToPassTest, PrintTranslatedMessagesFacade printTranslatedMessagesFacade
+    ) {
         this.ioService = ioService;
         this.questionService = questionService;
-        this.localizationService = localizationService;
         this.pointsToPassTest = pointsToPassTest;
+        this.printTranslatedMessagesFacade = printTranslatedMessagesFacade;
     }
 
     @Override
-    public void askQuestions() {
+    public void askQuestions(Student student) {
         final List<Question> questionList = questionService.getQuestions();
         int correctAnswers = 0;
         for (Question question : questionList) {
@@ -31,13 +33,18 @@ public class TestingServiceImpl implements TestingService {
             }
         }
         ioService.write("--------------");
-        ioService.write(isTestPassed(correctAnswers));
+        if (isTestPassed(correctAnswers)) {
+            printTranslatedMessagesFacade.printTranslated("app.testing.passed", student.getName(), student.getSurname(), correctAnswers);
+        } else {
+            printTranslatedMessagesFacade.printTranslated("app.testing.failed", student.getName(), student.getSurname(), correctAnswers, pointsToPassTest);
+        }
     }
 
     void askQuestion(Question question) {
-        ioService.write(localizationService.getMessageByKey("app.testing.question") + " " + question.getQuestion());
+        printTranslatedMessagesFacade.printTranslated("app.testing.question");
+        ioService.write(question.getQuestion());
 
-        ioService.write(localizationService.getMessageByKey("app.testing.answers"));
+        printTranslatedMessagesFacade.printTranslated("app.testing.answers");
         List<String> answers = question.getAnswers();
         for (String answer : answers) {
             ioService.write(answer);
@@ -45,16 +52,12 @@ public class TestingServiceImpl implements TestingService {
     }
 
     boolean checkAnswer(Question question) {
-        ioService.write(localizationService.getMessageByKey("app.testing.student.answer"));
+        printTranslatedMessagesFacade.printTranslated("app.testing.student.answer");
         final int studentAnswer = ioService.readIntInRange(1, 3);
         return question.getCorrectAnswer() == studentAnswer;
     }
 
-    String isTestPassed(int correctAnswers) {
-        if (correctAnswers < pointsToPassTest) {
-            return localizationService.getMessageByKey("app.testing.failed", correctAnswers, pointsToPassTest);
-        } else {
-            return localizationService.getMessageByKey("app.testing.passed", correctAnswers);
-        }
+    boolean isTestPassed(int correctAnswers) {
+        return correctAnswers >= pointsToPassTest;
     }
 }

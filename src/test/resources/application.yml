@@ -1,6 +1,9 @@
 application:
-  questions.file: questions/questions_en_EN.csv
+  locale: en_EN
   points-to-pass: 4
+  languages:
+    ru_RU: questions/questions_ru_RU.csv
+    en_EN: questions/questions_en_EN.csv
 spring:
   output:
     ansi:
