@@ -23,7 +23,7 @@ public class QuestionDaoImpl implements QuestionDao {
     }
 
     public List<Question> getQuestions() throws QuestionReadException {
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(languageConfig.getQuestionsFile(languageConfig.getLocale()));
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(languageConfig.getQuestionsFile());
              Scanner sc = new Scanner(requireNonNull(inputStream))) {
             List<Question> questions = new ArrayList<>();
             while (sc.hasNext()) {

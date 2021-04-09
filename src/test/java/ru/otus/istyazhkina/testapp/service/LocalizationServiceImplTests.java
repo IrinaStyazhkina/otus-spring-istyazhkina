@@ -34,7 +34,7 @@ public class LocalizationServiceImplTests {
 
     @Test
     @DisplayName("Вывод сообщений на английском языке")
-    void shouldGerMessageByKeyForEnLocale() {
+    void shouldGetMessageByKeyForEnLocale() {
         languageConfig.setLocale(Locale.forLanguageTag("en-EN"));
         String messageByKey = localizationService.getMessageByKey("app.student.greeting");
         assertEquals("Welcome to the testing platform!", messageByKey);

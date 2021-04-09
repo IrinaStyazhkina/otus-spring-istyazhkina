@@ -11,19 +11,14 @@ import java.util.Map;
 @Component
 public class LanguageConfig {
 
-    private Locale locale;
     private Map<Locale, String> languages;
 
-    public Locale getLocale() {
-        return locale;
-    }
-
     public void setLocale(Locale locale) {
-        this.locale = locale;
+        Locale.setDefault(locale);
     }
 
-    public String getQuestionsFile(Locale locale) {
-        return languages.get(locale);
+    public String getQuestionsFile() {
+        return languages.get(Locale.getDefault());
     }
 
     public Map<Locale, String> getLanguages() {

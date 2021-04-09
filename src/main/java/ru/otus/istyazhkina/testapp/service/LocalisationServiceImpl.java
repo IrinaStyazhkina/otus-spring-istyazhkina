@@ -4,6 +4,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import ru.otus.istyazhkina.testapp.config.LanguageConfig;
 
+import java.util.Locale;
+
 @Service
 public class LocalisationServiceImpl implements LocalizationService {
 
@@ -17,6 +19,6 @@ public class LocalisationServiceImpl implements LocalizationService {
 
     @Override
     public String getMessageByKey(String key, Object... objects) {
-        return messageSource.getMessage(key, objects, languageConfig.getLocale());
+        return messageSource.getMessage(key, objects, Locale.getDefault());
     }
 }
