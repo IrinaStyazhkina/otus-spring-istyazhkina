@@ -1,0 +1,5 @@
+How to declare a class in Java?;1. new class MyClass {};2. class MyClass {};3. select * from class MyClass {};2
+What is the new operator used for?;1. To create an instance of a class;2. To declare a new class;3. To create a new variable;1
+What does the extends keyword mean?;1. That two classes do the same thing;2. That it is an additional class module that extends its properties;3. That this class is inherited from another class;3
+What does method overloading mean in Java?;1. Changing the behavior of a class method relative to a child method;2. Changing the behavior of a class method relative to the parent method;3. Multiple methods with the same name but different set of parameters;3
+What does overriding a method in Java mean?;1. Changing the behavior of a class method relative to a child method;2. Changing the behavior of a class method relative to the parent method;3. Multiple methods with the same name but different set of parameters;2
