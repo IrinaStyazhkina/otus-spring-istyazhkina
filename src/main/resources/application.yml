@@ -1,5 +1,5 @@
 application:
-  locale: en_EN
+  locale: ru_RU
   points-to-pass: 4
   languages:
     ru_RU: questions/questions_ru_RU.csv
@@ -10,3 +10,4 @@ spring:
       enabled: always
   messages:
     encoding: UTF-8
+    fallback-to-system-locale: false

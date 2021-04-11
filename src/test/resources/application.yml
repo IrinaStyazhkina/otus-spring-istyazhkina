@@ -10,3 +10,4 @@ spring:
       enabled: always
   messages:
     encoding: UTF-8
+    fallback-to-system-locale: false
