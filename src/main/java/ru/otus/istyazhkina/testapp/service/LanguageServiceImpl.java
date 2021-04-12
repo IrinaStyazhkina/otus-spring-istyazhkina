@@ -3,8 +3,8 @@ package ru.otus.istyazhkina.testapp.service;
 import org.springframework.stereotype.Service;
 import ru.otus.istyazhkina.testapp.config.LanguageConfig;
 
+import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 @Service
 public class LanguageServiceImpl implements LanguageService {
@@ -22,9 +22,9 @@ public class LanguageServiceImpl implements LanguageService {
     @Override
     public void chooseAppLanguage() {
         printTranslatedMessagesFacade.printTranslated("app.language.choose");
-        final Map<Locale, String> languages = languageConfig.getLanguages();
-        for (Map.Entry<Locale, String> entry : languages.entrySet()) {
-            ioService.write(entry.getKey().getLanguage());
+        final List<Locale> languages = languageConfig.getLanguages();
+        for (Locale lang : languages) {
+            ioService.write(lang.getLanguage());
         }
         Locale locale = null;
         while (locale == null) {
@@ -33,11 +33,11 @@ public class LanguageServiceImpl implements LanguageService {
         languageConfig.setLocale(locale);
     }
 
-    Locale getLanguage(Map<Locale, String> languages) {
-        String lang = ioService.read();
-        for (Map.Entry<Locale, String> entry : languages.entrySet()) {
-            if (entry.getKey().getLanguage().equals(lang)) {
-                return entry.getKey();
+    Locale getLanguage(List<Locale> languages) {
+        String language = ioService.read();
+        for (Locale lang : languages) {
+            if (lang.getLanguage().equals(language)) {
+                return lang;
             }
         }
         printTranslatedMessagesFacade.printTranslated("app.language.error");

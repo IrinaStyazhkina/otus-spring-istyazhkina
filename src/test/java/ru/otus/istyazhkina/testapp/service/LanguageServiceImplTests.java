@@ -1,6 +1,5 @@
 package ru.otus.istyazhkina.testapp.service;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -8,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -24,12 +23,7 @@ public class LanguageServiceImplTests {
     @MockBean
     private IOService ioService;
 
-    private static Map<Locale, String> supportedLanguages = new HashMap<>();
-
-    @BeforeAll
-    static void setUp() {
-        supportedLanguages.put(Locale.forLanguageTag("ru-RU"), "questions/questions_ru_RU");
-    }
+    private static final List<Locale> supportedLanguages = Collections.singletonList(Locale.forLanguageTag("ru-RU"));
 
     @Test
     @DisplayName("Если язык не поддерживается, метод getLanguage() должен вернуть null")
