@@ -33,7 +33,7 @@ public class LanguageServiceImpl implements LanguageService {
         languageConfig.setLocale(locale);
     }
 
-    private Locale getLanguage(Map<Locale, String> languages) {
+    Locale getLanguage(Map<Locale, String> languages) {
         String lang = ioService.read();
         for (Map.Entry<Locale, String> entry : languages.entrySet()) {
             if (entry.getKey().getLanguage().equals(lang)) {

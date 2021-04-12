@@ -3,7 +3,6 @@ package ru.otus.istyazhkina.testapp.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -30,7 +29,7 @@ public class LanguageConfig {
         return languages;
     }
 
-    public void setLanguages(HashMap<Locale, String> languages) {
+    public void setLanguages(Map<Locale, String> languages) {
         this.languages = languages;
     }
 }

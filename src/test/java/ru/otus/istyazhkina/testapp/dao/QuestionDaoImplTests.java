@@ -1,8 +1,11 @@
 package ru.otus.istyazhkina.testapp.dao;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import ru.otus.istyazhkina.testapp.config.LanguageConfig;
 import ru.otus.istyazhkina.testapp.domain.Question;
 
@@ -10,23 +13,33 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doAnswer;
 
-@SpringBootTest
+@SpringBootTest()
 public class QuestionDaoImplTests {
 
     @Autowired
-    private LanguageConfig languageConfig;
+    private QuestionDao questionDao;
+
+    @Configuration
+    static class TestConfiguration {
+
+        @Bean
+        QuestionDao questionDao() {
+            LanguageConfig languageConfigMock = Mockito.mock(LanguageConfig.class);
+            doAnswer(invocation -> "questions/questions_en_EN.csv").when(languageConfigMock).getQuestionsFile();
+            return new QuestionDaoImpl(languageConfigMock);
+        }
+    }
 
     @Test
     void questionsFileShouldHaveFiveQuestions() {
-        QuestionDao questionDao = new QuestionDaoImpl(languageConfig);
         List<Question> questions = questionDao.getQuestions();
         assertEquals(5, questions.size());
     }
 
     @Test
     void questionsParseTest() {
-        QuestionDao questionDao = new QuestionDaoImpl(languageConfig);
         List<Question> questions = questionDao.getQuestions();
         Question question = questions.get(0);
         assertThat(question.getQuestion()).isEqualTo("How to declare a class in Java?");

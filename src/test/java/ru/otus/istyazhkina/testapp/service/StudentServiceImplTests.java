@@ -1,5 +1,6 @@
 package ru.otus.istyazhkina.testapp.service;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class StudentServiceImplTests {
     private IOService ioService;
 
     @Test
+    @DisplayName("Получение данных студента")
     void shouldGetCorrectStudentData() {
         Mockito.when(ioService.read())
                 .thenReturn("Ivan")
