@@ -21,9 +21,6 @@ public class StudentServiceImpl implements StudentService {
         String name = ioService.read();
         printTranslatedMessagesFacade.printTranslated("app.student.ask.surname");
         String surname = ioService.read();
-        Student student = new Student(name, surname);
-
-        printTranslatedMessagesFacade.printTranslated("app.student.testing.introduction", student.getName(), student.getSurname());
-        return student;
+        return new Student(name, surname);
     }
 }
